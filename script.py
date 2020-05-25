@@ -41,6 +41,7 @@ def replaceSpaceFile(fileName):
 ##Insert files with fileExtension to the MongoDB
 def insertMongo(files):
     for i in range(len(files)): #For with index for all files with fileExtension in folder
+        print(f'Importing file: {files[i]}')
         os.system(fr'mongoimport -h {os.getenv("server")} --port {os.getenv("port")} --db {os.getenv("databaseName")} -c={os.getenv("collectionName")} --type {removeDot(fileExtension)} --headerline --file {getCurrentPath()}\{filesFolder}\{pendingFolder}\{files[i]}') #Insert into MongoDB
         os.system(fr'move {getCurrentPath()}\{filesFolder}\{pendingFolder}\{files[i]} {getCurrentPath()}\{filesFolder}\{concludedFolder}') #Move inserted files into MongoDB to concludedFolder
 
@@ -48,7 +49,7 @@ def main():
     while(True): #Loop the script 
         if(len(getFiles(fileExtension)) != 0): #If have files in the folder with the fileExtension
             insertMongo(getFiles(fileExtension)) #Insert into MongoDB the files.
-            print(f'All files with the {fileExtension} in the folder are imported to MongoDB. Waiting {wait} Minutes to the next check.')
+            print(f'All files with the {fileExtension} in the folder have been imported to MongoDB. Waiting {wait} Minutes to the next check.')
         else:
             print(f'None file with the {fileExtension} extension. Waiting {wait} Minutes')
         time.sleep(wait*60) #Wait the "wait" minutes * 60 to get the sleep in Seconds.
