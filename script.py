@@ -6,6 +6,8 @@ import os #To get the current path and execute commands in terminal
 import time #To sleep/wait
 import shutil #To move files on UNIX
 from dotenv import load_dotenv #To load the .env in pyhthon.
+import datetime #Load time 
+
 load_dotenv() #To load .env file
 
 
@@ -50,9 +52,9 @@ def main():
     while(True): #Loop the script 
         if(len(getFiles(fileExtension)) != 0): #If have files in the folder with the fileExtension
             insertMongo(getFiles(fileExtension)) #Insert into MongoDB the files.
-            print(f'All files with the {fileExtension} in the folder have been imported to MongoDB. Waiting {wait} Minutes to the next check.')
+            print(f'{datetime.datetime.now().hour}:{datetime.datetime.now().minute} - All files with the {fileExtension} in the folder have been imported to MongoDB. Waiting {wait} Minutes to the next check.')
         else:
-            print(f'None file with the {fileExtension} extension. Waiting {wait} Minutes')
+            print(f'{datetime.datetime.now().hour}:{datetime.datetime.now().minute} - None file with the {fileExtension} extension. Waiting {wait} Minutes')
         time.sleep(wait*60) #Wait the "wait" minutes * 60 to get the sleep in Seconds.
 
 # Driver Code
