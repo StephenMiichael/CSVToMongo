@@ -37,14 +37,15 @@ def main():
         date = datetime.datetime.now()  # Shortcut to get current date
         selectQuery = f'SELECT * FROM general_log WHERE event_time < "{date.year}-{date.month:02d}-{date.day:02d} 23:59:59"'
 
-        fileDirectory = fr'{getCurrentPath()}\Files\Exporting\{date.year}{date.month:02d}{date.day:02d}{date.hour:02d}{date.minute:02d}{date.second:02d}.csv'
+        fileName = fr'{date.year}{date.month:02d}{date.day:02d}{date.hour:02d}{date.minute:02d}{date.second:02d}.csv'
+
         #Connect and execute the query.
         mycursor = mydb.cursor()
         mycursor.execute(selectQuery)
         myresult = mycursor.fetchall()  # Put the result of query to list myresult
 
         #Create and open the .csv file to put the result of query
-        fp = open(fileDirectory, 'w', encoding="utf-8", newline='\r\n')
+        fp = open(fr'{getCurrentPath()}/Files/Exporting/{fileName}', 'w', encoding="utf-8", newline='\r\n')
         myFile = csv.writer(fp, delimiter=',', lineterminator = '\n')
         myFile.writerow([ i[0] for i in mycursor.description ]) #To write the header.
         myFile.writerows(myresult)
@@ -52,11 +53,10 @@ def main():
         
         #To delete the logs.
         mycursor.execute(truncateQuery)
-
         #Close the connection
         mycursor.close()
 
-        shutil.move(fr'{fileDirectory}', fr'{getCurrentPath()}/Files/Pending') #Move the file to importing folder
+        shutil.move(fr'{getCurrentPath()}/Files/Exporting/{fileName}', fr'{getCurrentPath()}/Files/Pending') #Move the file to importing folder
         print(f'{date.hour:02d}:{date.minute:02d} - Extracted file from database successfully. Waiting {wait} Minutes')
         time.sleep(wait*60) # Wait the "wait" minutes * 60 to get the sleep in Seconds.
 
