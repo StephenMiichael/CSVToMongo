@@ -1,4 +1,5 @@
 ##Script made by Stephen Michael Apolinário.
+#Import CSV Files to MongoDB
 ##Version 0.1 - 21/05/2020
 
 ##Imports
@@ -13,7 +14,7 @@ load_dotenv() #To load .env file
 
 ##Configuration
 fileExtension = '.csv' #To list/get all files with fileExtension. (Need dot, example: .csv | .txt | .docx )
-wait = 10 #Minutes to wait the next loop
+wait = 1 #Minutes to wait the next loop
 
 ## Dont edit anything bellow this ##
 
@@ -50,11 +51,12 @@ def insertMongo(files):
 
 def main():
     while(True): #Loop the script 
+        date = datetime.datetime.now() #Shortcut to get current date
         if(len(getFiles(fileExtension)) != 0): #If have files in the folder with the fileExtension
             insertMongo(getFiles(fileExtension)) #Insert into MongoDB the files.
-            print(f'{datetime.datetime.now().hour}:{datetime.datetime.now().minute} - All files with the {fileExtension} in the folder have been imported to MongoDB. Waiting {wait} Minutes to the next check.')
+            print(f'{date.hour:02d}:{date.minute:02d} - All files with the {fileExtension} in the folder have been imported to MongoDB. Waiting {wait} Minutes to the next check.')
         else:
-            print(f'{datetime.datetime.now().hour}:{datetime.datetime.now().minute} - None file with the {fileExtension} extension. Waiting {wait} Minutes')
+            print(f'{date.hour:02d}:{date.minute:02d} - None file with the {fileExtension} extension. Waiting {wait} Minutes')
         time.sleep(wait*60) #Wait the "wait" minutes * 60 to get the sleep in Seconds.
 
 # Driver Code
