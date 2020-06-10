@@ -14,7 +14,7 @@ load_dotenv() #To load .env file
 
 ##Configuration
 fileExtension = '.csv' #To list/get all files with fileExtension. (Need dot, example: .csv | .txt | .docx )
-wait = 1 #Minutes to wait the next loop
+wait = 10 #Minutes to wait the next loop
 
 ## Dont edit anything bellow this ##
 

@@ -15,7 +15,7 @@ load_dotenv()  # To load .env file
 
 # Configuration
 fileExtension = '.csv'  # To export the query to fileExtension file
-wait = 1  # Minutes to wait the next loop
+wait = 10  # Minutes to wait the next loop
 truncateQuery = 'TRUNCATE `general_log`;'
 
 ## Dont edit anything bellow this ##
@@ -53,6 +53,7 @@ def main():
         
         #To delete the logs.
         mycursor.execute(truncateQuery)
+
         #Close the connection
         mycursor.close()
 
