@@ -35,7 +35,6 @@ def main():
             os.remove(file)
         print(f'{date.hour:02d}:{date.minute:02d} - None file with the {fileExtension} extension is older then today. Waiting {wait} Minutes to the next check.')
         time.sleep(wait*60) #Wait the "wait" minutes * 60 to get the sleep in Seconds.
-        exit()
 
 # Driver Code
 if __name__ == '__main__':
