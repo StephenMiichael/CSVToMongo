@@ -86,7 +86,7 @@ def main():
             server.login(os.getenv("email"), os.getenv("senha"))
             server.sendmail(sender, msg['To'], str(msg))
             server.quit()
-            print(f'Ocorreu o eror {e} no script\n\nIniciando o script novamente...')
+            print(f'Ocorreu o eror: \n {e} no script\n\nIniciando o script novamente...')
             main()
 
 # Driver Code
